@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-"""Module for BaseGeometry class"""
+"""Improve Geometry"""
 
 
 class BaseGeometry:
-    """
-    BaseGeometry class
-    """
+    """Class BaseGeometry (based on 5-base_geometry.py)."""
+
     def area(self):
-        """Methode to calculate area."""
+        """Public instance method: that raises an Exception
+        with the message"""
         raise Exception("area() is not implemented")
