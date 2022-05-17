@@ -1,5 +1,11 @@
 #!/usr/bin/node
-const request = require('request');
-request.get(process.argv[2]).on('response', function (response) {
-  console.log(`code: ${response.statusCode}`);
-});
+// This script display the status code of a GET request.
+const axios = require('axios');
+
+axios.get(process.argv[2])
+  .then(res => {
+    console.log('code:', res.status);
+  })
+  .catch(err => {
+    console.log('code:', err.response.status);
+  });
