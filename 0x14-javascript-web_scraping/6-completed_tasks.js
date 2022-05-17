@@ -1,16 +1,19 @@
 #!/usr/bin/node
-const request = require('request');
-request(process.argv[2], function (error, response, body) {
-  if (!error) {
-    const todos = JSON.parse(body);
-    let completed = {};
-    todos.forEach((todo) => {
-      if (todo.completed && completed[todo.userId] === undefined) {
-        completed[todo.userId] = 1;
-      } else if (todo.completed) {
-        completed[todo.userId] += 1;
-      }
+// This script computes the number of tasks completed by user id.
+const axios = require('axios');
+
+axios.get(process.argv[2])
+  .then(res => {
+    const dict = {};
+    let tmp = 1;
+    let ss = 1;
+    res.data.forEach(data => {
+      if (data.userId !== ss) tmp = 1;
+      if (data.completed === true) dict[data.userId] = tmp++;
+      ss = data.userId;
     });
-    console.log(completed);
-  }
-});
+    console.log(dict);
+  })
+  .catch(err => {
+    console.log('Error:', err);
+  });
